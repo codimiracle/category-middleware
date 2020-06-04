@@ -1,0 +1,44 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.codimiracle.web.middleware.category.mapper.CategoryMapper">
+    <resultMap id="PersistentResultMap" type="com.codimiracle.web.middleware.category.pojo.po.Category">
+        <id column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="parentCategoryId" property="parentId" />
+    </resultMap>
+
+    <resultMap id="ValueResultMap" type="com.codimiracle.web.middleware.category.pojo.vo.CategoryVO">
+        <id column="category_id" property="id" />
+        <result column="category_name" property="name" />
+        <result column="category_parent_id" property="parentId" />
+        <result column="category_created_at" property="createdAt" />
+        <result column="category_updated_at" property="updatedAt" />
+    </resultMap>
+
+    <sql id="select_statement">
+        SELECT
+            c.id category_id,
+            c.name category_name,
+            c.parent_id category_parent_id,
+            c.deleted category_deleted,
+            c.created_at category_created_at,
+            c.updated_at category_updated_at,
+            c.deleted_at category_deleted_at
+        FROM category c WHERE c.deleted = 0
+    </sql>
+
+    <select id="selectByIdIntegrally" resultMap="ValueResultMap">
+        <include refid="select_statement" />
+        AND c.id = #{id}
+    </select>
+
+    <select id="selectAllIntegrally" resultMap="ValueResultMap">
+        <include refid="select_statement" />
+        <if test="filter != null">
+            <if test="filter.type != null and filter.type.length gt 0">
+                AND c.type = #{filter.type[0]}
+            </if>
+        </if>
+    </select>
+</mapper>
