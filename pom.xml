@@ -27,10 +27,6 @@
 			<groupId>com.codimiracle.web</groupId>
 			<artifactId>mybatis-contract</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>com.google.guava</groupId>
-			<artifactId>guava</artifactId>
-		</dependency>
 
 		<dependency>
 			<groupId>com.h2database</groupId>
@@ -59,14 +55,4 @@
 			</exclusions>
 		</dependency>
 	</dependencies>
-
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-		</plugins>
-	</build>
-
 </project>
